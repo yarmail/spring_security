@@ -1,0 +1,94 @@
+79 Аутентификация в Spring Security
+
+Создаем тестовые данные в базе данных
+script.txt
+
+Создвем модель Person и делаем её сущностью
+для Hibernate
+
+Создаем папку security для файлов Spring Security
+
+----
+
+Создаем класс PersonDetails класс обертка для Person
+(шаблон Декоратор?)
+src/main/java/project/security/PersonDetails.java
+
+Реализуя стандартные методы UserDetails
+мы более правильно работаем с Security
+(в модели могут быть любые методы, в этом классе
+все стандартизировано)
+
+---
+
+Создаем
+src/main/java/project/security/AuthProviderImpl.java
+В данном случае этот класс будет сравнивать
+введенные данные с БД, но могут быть и другие варианты
+
+Подаем на вход Authentication Credentials
+(некие учетные данные для проверки)
+
+Получаем на выходе Authentication Principal
+(в него как правило кладется сам объект после
+аутентификации)
+
+authenticate()
+Логика аутентификации
+С одной стороны на вход получаем объект
+authentication c учетными данными
+Далее должны отыскать его в базе - есть ли такой
+через сервис PersonDetailsService
+и репозиторий PeopleRepository
+Возвращаемый объект
+UsernamePasswordAuthenticationToken
+будет вставлен в сессию и при каждом запросе пользователя
+он будет доставться из сессии
+
+---
+
+Создаем
+src/main/java/project/config/SecurityConfig.java
+там будут все настройки Security
+@EnableWebSecurity - конфигурационный файл для Security
+внедряем провайдера AuthProviderImpl - (логику аутентификации)
+
+---
+Тестируем приложение
+
+После запуска SpringSecurityApplication
+заходим в браузере на http://localhost:8080/ и автоматически
+переходим на логин
+Вводим неправильные логин или пароль и видим исключение,
+которые мы сделали в
+src/main/java/project/services/PersonDetailsService.java
+и которое перехватил Security
+
+Примечание
+Пока пароли хранятся в незашифрованном виде, в дальнейшем это
+будет исправлено
+
+---
+
+Получим нашего аутентифицированного пользователя
+в коде.
+
+В HelloController добавим новый метод
+
+    public String showUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails)authentication.getPrincipal();
+        System.out.println(personDetails.getPerson());
+
+который обращается к java потока текущего пользователя
+SecurityContextHolder.getContext().getAuthentication()
+и достает оттуда объект пользователя
+после успешной аутентификации
+
+
+
+
+
+
+
+
