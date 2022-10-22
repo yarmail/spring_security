@@ -14,6 +14,7 @@ public class HelloController {
         return "hello";
     }
 
+    // Из потока пользователя вытаскиевает объект Person и берет его данные
     @GetMapping("/showUserInfo")
     public String showUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

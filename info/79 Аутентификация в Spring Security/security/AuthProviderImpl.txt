@@ -12,6 +12,8 @@ import project.services.PersonDetailsService;
 
 import java.util.Collections;
 
+// Сложный вариант ручного провайдера для урока 79
+
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
 
