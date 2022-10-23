@@ -32,7 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/auth/login") //хотим свою страницу аутентификации
                 .loginProcessingUrl("/process_login") //куда отправлять данные из формы аутентификации
                 .defaultSuccessUrl("/hello", true) // после успешной аутентиф. перенаправить на страницу
-                .failureUrl("/auth/login?error"); //после неуспешной аутентиф. перенаправить обратно с ключом
+                .failureUrl("/auth/login?error") //после неуспешной аутентиф. перенаправить обратно с ключом
+                .and() // добавляем процесс разлогининивания
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login"); // ссылка на разлогинивание, автопереход после него
+
+
     }
 
     //Настраиваем аутентификацию

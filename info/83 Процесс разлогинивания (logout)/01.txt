@@ -1,0 +1,11 @@
+83 Процесс разлогинивания (logout)
+
+Добавляем процесс разлогинивания в
+src/main/java/project/config/SecurityConfig.java
+метод configure(HttpSecurity http)
+
+Логику "/logout" мы не делаем Security все делает сам
+(удаляет сессию, удаляет куки у пользователя, разлогинивает)
+
+Добавляем кнопку Logout на страницу hello.html
+
