@@ -1,0 +1,13 @@
+82 Процесс регистрации новового пользователя в Spring Security
+
+Для регистрации нового пользователя добавляем новый метод
+registrationPage() в контроллер AuthController
+
+и новое представление
+src/main/resources/templates/auth/registration.html
+для заполнения формы регистрации
+
+Для обработки данных с формы
+создаем новый метод performRegistration()
+
+Для проверки Person реализуем валидатор
