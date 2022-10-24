@@ -1,10 +1,12 @@
 package project.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import project.models.Person;
 
 import java.util.Collection;
+import java.util.Collections;
 
 // Обертка над Person
 public class PersonDetails implements UserDetails {
@@ -14,9 +16,10 @@ public class PersonDetails implements UserDetails {
         this.person = person;
     }
 
+    // Спринг не различает роли и действия
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
     }
 
     // как бы не назывался метод у password здесь будет getPassword()
