@@ -32,6 +32,7 @@ ROLE_ADMIN
 
 Изменим таблицу Person, добавим туда
 колонку role
+(script.txt)
 
 Меняем модель Person
 

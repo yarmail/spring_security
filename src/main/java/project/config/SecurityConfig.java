@@ -3,6 +3,7 @@ package project.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import project.services.PersonDetailsService;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PersonDetailsService personDetailsService;
@@ -27,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 //.csrf().disable() // временно отключаем csrf токен (защиту от межсайтовой подделки запросов)
                 .authorizeRequests() // начало авторизации -  предоставить разрешения для следующих url
-                .antMatchers("/admin").hasRole("ADMIN")
+                //.antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll() // на эти страниы проходят все
                 //.anyRequest().authenticated() // на все остальные страницы мы не пускаем неаутентиф. пользователей
                 .anyRequest().hasAnyRole("USER", "ADMIN")

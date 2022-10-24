@@ -1,0 +1,34 @@
+87 Аннотация @PreAuthorize
+
+Spring Security позволяет настраивать
+авторизацию на уровне методов в коде
+
+Для примера уберем ограничение в методе config
+класса project/config/SecurityConfig.java
+.antMatchers("/admin").hasRole("ADMIN")
+
+и теперь любой пользователь с ролью
+USER или ADMIN может попасть на страницу
+admin.html
+
+Для управления доступом по методам мы должный
+включить эту возможность в
+project/config/SecurityConfig.java
+Добавляем в класс аннотацию
+@EnableGlobalMethodSecurity
+
+Аннотация @PreAuthorize обычно не используется
+в контроллерах (для этого лучше использовать конфиг)
+её можно использовать в методах
+
+Для примера используем
+project/controllers/HelloController.java
+В методе adminPage()
+сделаем дополнительный метод обращения
+к сервису и его будем ограничивать
+adminService.doAdminStuff();
+
+
+
+
+
