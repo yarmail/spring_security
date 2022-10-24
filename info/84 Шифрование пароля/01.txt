@@ -17,7 +17,7 @@ Bcrypt - будем использовать на уроке
 
 Как будет работать приложение
 
-При ренистрации
+При регистрации
 bcrypt("пароль") -> hash - сохраняем в БД
 При аутентификации
 bcrypt("пароль") -> hash - сравниваем с сохраненным в БД
@@ -38,4 +38,3 @@ src/main/java/project/services/RegistrationService.java
 src/main/java/project/config/SecurityConfig.java
 в методе аутентификации configure(Auth...)
 использование бикрипта
-
